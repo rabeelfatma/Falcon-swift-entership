@@ -1,4 +1,5 @@
 'use client';
+
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { Mail, ChevronDown } from 'lucide-react';
@@ -6,12 +7,12 @@ import { GithubIcon, LinkedinIcon } from './BrandIcons';
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 pt-20 relative">
+    <section id="home" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 pt-28 pb-16 relative">
       <motion.div
         initial={{ opacity: 0, x: -60, rotate: -2 }}
         animate={{ opacity: 1, x: 0, rotate: 0 }}
         transition={{ duration: 1, type: 'spring', stiffness: 90 }}
-        className="text-center md:text-left max-w-xl"
+        className="text-center md:text-left max-w-xl z-10"
       >
         <p className="text-[var(--accent-2)] mb-2">Hello, It's Me</p>
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
@@ -79,10 +80,10 @@ export default function Hero() {
           transition={{ delay: 1.3, duration: 0.6 }}
           className="flex gap-6 justify-center md:justify-start mt-6 text-[var(--text-dim)]"
         >
-          <motion.a href="https://github.com/rabeelfatma" target="_blank" whileHover={{ scale: 1.25, color: 'var(--accent)', y: -3 }} className="flex items-center gap-1.5">
+          <motion.a href="https://github.com/rabeelfatma" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.25, color: 'var(--accent)', y: -3 }} className="flex items-center gap-1.5">
             <GithubIcon size={20} /> GitHub
           </motion.a>
-          <motion.a href="https://www.linkedin.com/in/rabeel-fatima-0bb5b7415" target="_blank" whileHover={{ scale: 1.25, color: 'var(--accent)', y: -3 }} className="flex items-center gap-1.5">
+          <motion.a href="https://www.linkedin.com/in/rabeel-fatima-0bb5b7415" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.25, color: 'var(--accent)', y: -3 }} className="flex items-center gap-1.5">
             <LinkedinIcon size={20} /> LinkedIn
           </motion.a>
           <motion.a href="mailto:rabeel1937a@gmail.com" whileHover={{ scale: 1.25, color: 'var(--accent)', y: -3 }} className="flex items-center gap-1.5">
@@ -95,13 +96,18 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.6, rotate: 8 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ duration: 1, delay: 0.2, type: 'spring', stiffness: 90 }}
+        className="flex-shrink-0 z-10"
       >
         <motion.div
           animate={{ boxShadow: ['0 0 40px 5px rgba(251,122,31,0.3)', '0 0 70px 15px rgba(255,91,31,0.4)', '0 0 40px 5px rgba(251,122,31,0.3)'] }}
           transition={{ duration: 3, repeat: Infinity }}
           className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[var(--accent)]/50"
         >
-          <img src="/images/profile.jpg" alt="Rabeel Fatima" className="w-full h-full object-cover" />
+          <img
+            src="/images/image.jpg"
+            alt="Rabeel Fatima"
+            className="w-full h-full object-cover"
+          />
         </motion.div>
       </motion.div>
 
@@ -110,7 +116,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ opacity: { delay: 1.5 }, y: { duration: 1.8, repeat: Infinity } }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[var(--accent)]"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[var(--accent)]"
       >
         <ChevronDown size={28} />
       </motion.a>
