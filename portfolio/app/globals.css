@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ============================================
+   THEME TOKENS — Black & Orange
+   Toggle by adding/removing `light` class on <html>
+   ============================================ */
+:root {
+  --bg: #05050a;
+  --bg-soft: #0a0a12;
+  --text: #f5f5f0;
+  --text-dim: #a8a8b3;
+  --accent: #fb7a1f;   /* orange */
+  --accent-2: #ff9d4d;  /* light orange */
+  --accent-3: #ff5b1f;  /* deep orange/red */
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(251, 122, 31, 0.25);
+  --hairline: rgba(255, 255, 255, 0.1);
+}
+
+html.light {
+  --bg: #f6f4f0;
+  --bg-soft: #ffffff;
+  --text: #171410;
+  --text-dim: #5c574e;
+  --accent: #ea580c;
+  --accent-2: #f97316;
+  --accent-3: #c2410c;
+  --card-bg: rgba(0, 0, 0, 0.035);
+  --card-border: rgba(234, 88, 12, 0.3);
+  --hairline: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.badge-pill {
+  display: inline-block;
+  border: 1px solid var(--card-border);
+  background: rgba(251, 122, 31, 0.08);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--accent-2);
+}
+
+.text-muted {
+  color: var(--text-dim);
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.hairline {
+  border-color: var(--hairline);
+}
+
+/* Theme toggle switch */
+.theme-toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  transition: background 0.3s ease;
+}
+
+.theme-toggle .knob {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
