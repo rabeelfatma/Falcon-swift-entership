@@ -49,6 +49,15 @@ const projects = [
     linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_im-excited-to-share-my-latest-desktop-application-activity-7475867816559169536-KKPK',
     video: 'https://drive.google.com/file/d/1_hj5GS1cQN65OVCOGij6vNxyeEO5qUAc/preview',
   },
+  {
+    title: 'Hospital Management System',
+    desc: 'Desktop application for managing patient records, doctor schedules and hospital operations.',
+    tech: 'C#, Windows Forms, Database: SQL Server',
+    category: 'Desktop',
+    github: 'https://github.com/rabeelfatma/Project-Hospital-Management-System',
+    linkedin: 'https://lnkd.in/p/dzZVpXy2',
+    video: 'https://drive.google.com/file/d/1-7UEQcP3on0OyzWj7q1VHpctA6-x3OHU/preview',
+  },
 ];
 
 export default function ProjectsWithVideo() {
