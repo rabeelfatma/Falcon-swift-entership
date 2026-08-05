@@ -176,7 +176,7 @@ function ProjectGrid({ items, isMobile = false }) {
               {p.desc && <p className="text-[var(--text-dim)] text-sm mb-3">{p.desc}</p>}
               {p.tech && <p className="text-xs text-[var(--accent-2)] mb-4">{p.tech}</p>}
             </div>
-            <div className="flex gap-5 text-sm pt-2">
+            <div className="flex flex-wrap gap-4 text-sm pt-2">
               {p.github && (
                 <a href={p.github} target="_blank" className="flex items-center gap-1.5 text-[var(--accent)] hover:underline">
                   <GithubIcon size={18} /> GitHub
@@ -185,6 +185,11 @@ function ProjectGrid({ items, isMobile = false }) {
               {p.linkedin && (
                 <a href={p.linkedin} target="_blank" className="flex items-center gap-1.5 text-[var(--accent-3)] hover:underline">
                   <LinkedinIcon size={18} /> LinkedIn
+                </a>
+              )}
+              {p.video && (
+                <a href={p.video} target="_blank" className="flex items-center gap-1.5 text-sky-400 hover:underline">
+                  ▶ Watch Video
                 </a>
               )}
             </div>
