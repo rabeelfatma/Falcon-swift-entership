@@ -65,7 +65,7 @@ export default function Skills() {
     <section id="skills" className="py-24 px-6 max-w-5xl mx-auto">
       <TypedOnView text="Skills" as="h2" className="text-3xl font-bold mb-10 gradient-text text-center block" />
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {skillGroups.map((group, gi) => {
           const Icon = group.icon;
           return (

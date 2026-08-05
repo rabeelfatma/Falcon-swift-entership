@@ -24,7 +24,7 @@ function WhatsAppIcon({ size = 20 }) {
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 pt-28 pb-16 relative">
+    <section id="home" className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 px-6 pt-28 pb-16 relative overflow-hidden">
       <motion.div
         initial={{ opacity: 0, x: -60, rotate: -2 }}
         animate={{ opacity: 1, x: 0, rotate: 0 }}
@@ -54,11 +54,20 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6, type: 'spring' }}
+          transition={{ delay: 0.5, duration: 0.6, type: 'spring' }}
+          className="text-[var(--text-dim)] mb-2"
+        >
+          Always curious, always building.I enjoy picking up new tools and frameworks
+          quickly and shipping projects that actually work end to end.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.6, type: 'spring' }}
           className="text-[var(--text-dim)] mb-8"
         >
-          Always curious, always building — I enjoy picking up new tools and frameworks
-          quickly and shipping projects that actually work end to end.
+          Turning ideas into intelligent, real-world solutionsone project at a time.
         </motion.p>
 
         <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -79,9 +88,9 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.6, type: 'spring', stiffness: 150 }}
-            whileHover={{ scale: 1.1, boxShadow: '0 0 35px rgba(251,122,31,0.45)' }}
+            whileHover={{ scale: 1.1, boxShadow: '0 0 35px rgba(251,122,31,0.55)' }}
             whileTap={{ scale: 0.92 }}
-            className="inline-block border-2 border-[var(--accent)] text-[var(--accent)] px-6 py-3 rounded-full font-medium transition hover:bg-[var(--accent)] hover:text-white"
+            className="inline-block bg-gradient-to-r from-[var(--accent)] to-[var(--accent-3)] text-white px-6 py-3 rounded-full font-medium transition"
           >
             Hire Me
           </motion.a>
@@ -115,12 +124,42 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.6, rotate: 8 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ duration: 1, delay: 0.2, type: 'spring', stiffness: 90 }}
-        className="flex-shrink-0 z-10"
+        className="flex-shrink-0 z-10 relative w-64 h-64 md:w-80 md:h-80"
       >
+        {/* Rotating partial gradient arc — not a full ring, just a glowing sweep */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+          className="absolute -inset-3 rounded-full"
+          style={{
+            background: 'conic-gradient(from 0deg, transparent 0%, transparent 78%, rgba(251,122,31,0.9) 92%, transparent 100%)',
+            WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))',
+            mask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))',
+          }}
+        />
+
+        {/* Pulsing "+" accent marks at the four diagonal corners */}
+        {[
+          { top: '-6%', left: '-6%', delay: 0 },
+          { top: '-6%', right: '-6%', delay: 0.4 },
+          { bottom: '-6%', left: '-6%', delay: 0.8 },
+          { bottom: '-6%', right: '-6%', delay: 1.2 },
+        ].map((pos, i) => (
+          <motion.span
+            key={i}
+            animate={{ opacity: [0.25, 1, 0.25], scale: [0.8, 1.15, 0.8] }}
+            transition={{ duration: 2.4, repeat: Infinity, delay: pos.delay, ease: 'easeInOut' }}
+            className="absolute text-[var(--accent)] text-xl md:text-2xl font-light select-none"
+            style={{ top: pos.top, left: pos.left, right: pos.right, bottom: pos.bottom }}
+          >
+            +
+          </motion.span>
+        ))}
+
         <motion.div
           animate={{ boxShadow: ['0 0 40px 5px rgba(251,122,31,0.3)', '0 0 70px 15px rgba(255,91,31,0.4)', '0 0 40px 5px rgba(251,122,31,0.3)'] }}
           transition={{ duration: 3, repeat: Infinity }}
-          className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[var(--accent)]/50"
+          className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[var(--accent)]/50"
         >
           <img
             src="/images/image.jpg"
