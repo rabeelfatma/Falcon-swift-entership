@@ -9,14 +9,14 @@ const certificates = [
     title: "Full Stack AI Engineering",
     issuer: "Falcon Swift",
     date: "2026",
-    image: "/certificates/fullstack-ai.png", // put the certificate image in /public/certificates/
+    image: "/images/fullstack-ai.png", // updated path based on your public/images folder
     link: "https://example.com/verify/credential-id", // verification / view link
   },
   // {
   //   title: "Another Certificate Title",
   //   issuer: "Issuing Organization",
   //   date: "2026",
-  //   image: "/certificates/another-cert.png",
+  //   image: "/images/another-cert.png",
   //   link: "https://example.com/verify/another-id",
   // },
 ];
