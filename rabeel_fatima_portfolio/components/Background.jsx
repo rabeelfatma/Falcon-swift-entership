@@ -1,169 +1,138 @@
-'use client';
-import { useEffect, useRef } from 'react';
+"use client";
+
+import { useEffect, useRef } from "react";
 
 export default function Background() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
+    let W, H;
     let animationId;
-    let width, height;
-    let particles = [];
 
-    // pull colors from your CSS variables so theme stays consistent
-    const styles = getComputedStyle(document.documentElement);
-    const accent = styles.getPropertyValue('--accent').trim() || '#3b82f6';
-    const accent2 = styles.getPropertyValue('--accent-2').trim() || '#a855f7';
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
 
-    const hexToRgb = (hex) => {
-      const clean = hex.replace('#', '');
-      const bigint = parseInt(clean.length === 3
-        ? clean.split('').map((c) => c + c).join('')
-        : clean, 16);
-      return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
-    };
+    // Orange / black palette matching the portfolio theme
+    const palette = [
+      "rgba(255, 138, 61, ALPHA)", // main orange
+      "rgba(255, 106, 0, ALPHA)", // deep orange
+      "rgba(255, 190, 130, ALPHA)", // light peach
+      "rgba(255, 220, 180, ALPHA)", // near white warm
+      "rgba(120, 60, 20, ALPHA)", // dim ember
+    ];
 
-    const c1 = hexToRgb(accent.startsWith('#') ? accent : '#3b82f6');
-    const c2 = hexToRgb(accent2.startsWith('#') ? accent2 : '#a855f7');
-
-    const lerpColor = (t) => {
-      const r = Math.round(c1[0] + (c2[0] - c1[0]) * t);
-      const g = Math.round(c1[1] + (c2[1] - c1[1]) * t);
-      const b = Math.round(c1[2] + (c2[2] - c1[2]) * t);
-      return `${r},${g},${b}`;
-    };
-
-    const resize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      initParticles();
-    };
-
-    const PARTICLE_COUNT = 70;
-    const MAX_DIST = 140;
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const t = Math.random();
-        particles.push({
-          x: Math.random() * width * 0.65, // keep cluster on left/bottom like reference
-          y: height * 0.25 + Math.random() * height * 0.75,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          r: Math.random() * 1.8 + 0.6,
-          t,
-          glow: Math.random() > 0.85, // some particles get a ring/glow like the image
-        });
-      }
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
     }
 
-    function drawWaveLayer(offset, amplitude, speed, colorRgb, alpha, yBase) {
-      const time = Date.now() * 0.0002 * speed;
-      ctx.beginPath();
-      for (let x = 0; x <= width; x += 6) {
-        const y =
-          yBase +
-          Math.sin(x * 0.004 + time + offset) * amplitude +
-          Math.sin(x * 0.011 + time * 1.4) * (amplitude * 0.3);
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+    class Particle {
+      constructor() {
+        this.reset();
       }
-      ctx.strokeStyle = `rgba(${colorRgb},${alpha})`;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-
-      // flowing wave lines, layered, colors blending between accent -> accent-2
-      const waveCount = 10;
-      for (let i = 0; i < waveCount; i++) {
-        const t = i / waveCount;
-        drawWaveLayer(
-          i * 0.6,
-          18 + i * 3,
-          0.6 + i * 0.05,
-          lerpColor(t),
-          0.05 + (1 - t) * 0.06,
-          height * (0.55 + t * 0.28)
-        );
+      reset() {
+        this.x = rand(0, W);
+        this.y = rand(0, H);
+        this.r = rand(0.5, 2);
+        this.baseAlpha = rand(0.15, 0.55);
+        this.speedX = rand(-0.08, 0.08);
+        this.speedY = rand(-0.08, 0.08);
+        this.color = palette[Math.floor(rand(0, palette.length))];
+        this.twinkleSpeed = rand(0.0015, 0.005);
+        this.twinklePhase = rand(0, Math.PI * 2);
       }
-
-      // update + draw particles
-      for (let p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > width * 0.75) p.vx *= -1;
-        if (p.y < height * 0.15 || p.y > height) p.vy *= -1;
+      update(t) {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < -10) this.x = W + 10;
+        if (this.x > W + 10) this.x = -10;
+        if (this.y < -10) this.y = H + 10;
+        if (this.y > H + 10) this.y = -10;
+        this.alpha =
+          this.baseAlpha *
+          (0.75 + 0.25 * Math.sin(t * this.twinkleSpeed + this.twinklePhase));
       }
-
-      // connecting lines between nearby particles
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i];
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < MAX_DIST) {
-            const opacity = (1 - dist / MAX_DIST) * 0.35;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(${lerpColor((a.t + b.t) / 2)},${opacity})`;
-            ctx.lineWidth = 0.6;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // draw particle dots
-      for (let p of particles) {
-        const color = lerpColor(p.t);
+      draw() {
+        const c = this.color.replace("ALPHA", this.alpha.toFixed(3));
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color},0.9)`;
-        ctx.shadowColor = `rgba(${color},0.8)`;
-        ctx.shadowBlur = 6;
+        ctx.fillStyle = c;
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
-
-        if (p.glow) {
+        if (this.r > 1.6) {
+          const glow = ctx.createRadialGradient(
+            this.x,
+            this.y,
+            0,
+            this.x,
+            this.y,
+            this.r * 6
+          );
+          glow.addColorStop(
+            0,
+            this.color.replace("ALPHA", (this.alpha * 0.35).toFixed(3))
+          );
+          glow.addColorStop(1, this.color.replace("ALPHA", "0"));
+          ctx.fillStyle = glow;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${color},0.5)`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
+          ctx.arc(this.x, this.y, this.r * 6, 0, Math.PI * 2);
+          ctx.fill();
         }
       }
+    }
 
+    const particles = [];
+    const PARTICLE_COUNT = 90;
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+    function drawBackgroundGradient() {
+      const g = ctx.createRadialGradient(
+        W * 0.5,
+        H * 0.45,
+        0,
+        W * 0.5,
+        H * 0.45,
+        Math.max(W, H) * 0.75
+      );
+      g.addColorStop(0, "#1a0d05");
+      g.addColorStop(0.5, "#100702");
+      g.addColorStop(1, "#050201");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    function animate(t) {
+      drawBackgroundGradient();
+      for (const p of particles) {
+        p.update(t);
+        p.draw();
+      }
       animationId = requestAnimationFrame(animate);
     }
-
-    resize();
-    animate();
-    window.addEventListener('resize', resize);
+    animationId = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-[var(--bg)]">
-      {/* soft ambient glow blobs behind the network, using your theme colors */}
-      <div className="absolute -inset-[20%] blur-[100px] opacity-30">
-        <div className="absolute top-[20%] left-[5%] w-72 h-72 rounded-full bg-[var(--accent)]" />
-        <div className="absolute bottom-[10%] left-[35%] w-80 h-80 rounded-full bg-[var(--accent-2)]" />
-      </div>
-
-      <canvas ref={canvasRef} className="absolute inset-0" />
-
-      <div className="absolute inset-0 bg-[var(--bg)] opacity-30" />
-    </div>
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
+        display: "block",
+      }}
+    />
   );
 }

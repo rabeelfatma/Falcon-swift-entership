@@ -5,7 +5,7 @@ import { Mail, Palette } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './BrandIcons';
 import ThemeToggle from './ThemeToggle';
 
-const links = ['Home', 'About', 'Services', 'Education', 'Experience', 'Skills', 'Projects', 'Contact'];
+const links = ['Home', 'About', 'Services', 'Education', 'Experience', 'Skills', 'Projects', 'Testimonials', 'Contact'];
 
 // 6 Accent Color Themes
 const accentThemes = [

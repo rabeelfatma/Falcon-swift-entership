@@ -8,6 +8,7 @@ const REPO = 'https://github.com/rabeelfatma/Flutter-Sp23-BSE-032-6A-Rabeel-Fati
 const webProjects = [
   {
     title: 'Expense Management System',
+    techStack: 'MongoDB, Express.js, React.js, Node.js (MERN Stack)',
     image: '/images/expense-management.png',
     github: 'https://github.com/rabeelfatma/advance_web_Rabeel_032',
     linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_expense-manager-mern-stack-application-activity-7472646697081266176-XFdg',
@@ -15,6 +16,7 @@ const webProjects = [
   },
   {
     title: 'Portfolio Website',
+    techStack: 'Next.js, React, Tailwind CSS',
     image: '/images/portfolio.png',
     github: 'https://github.com/rabeelfatma/advance_web_Rabeel_032/tree/main/portfolio',
     linkedin: null,
@@ -22,6 +24,7 @@ const webProjects = [
   },
   {
     title: 'Coffee Management System',
+    techStack: 'Laravel, PHP, MySQL, HTML5, CSS3, JavaScript',
     image: '/images/coffee-management.png',
     github: 'https://github.com/rabeelfatma/Web-Technology',
     linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_coffee-shop-management-system-laravel-activity-7474081379945811969-a6rC',
@@ -32,6 +35,7 @@ const webProjects = [
 const desktopProjects = [
   {
     title: 'Hostel Management System',
+    techStack: 'C#, WPF, XAML, Microsoft SQL Server LocalDB',
     image: '/images/hostel-management.png',
     github: 'https://github.com/rabeelfatma/Visual-Programming',
     linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_hostel-management-system-hms-description-activity-7473789970743418880-6ru_',
@@ -39,6 +43,7 @@ const desktopProjects = [
   },
   {
     title: 'Inventory Management System',
+    techStack: 'C#, WPF, XAML, Microsoft SQL Server LocalDB',
     image: '/images/inventory-management.png',
     github: 'https://github.com/rabeelfatma/Software-Construction-and-Development',
     linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_im-excited-to-share-my-latest-desktop-application-activity-7475867816559169536-KKPK',
@@ -46,6 +51,7 @@ const desktopProjects = [
   },
   {
     title: 'Hospital Management System',
+    techStack: 'C#, Windows Forms, Microsoft SQL Server',
     image: '/images/hospital-management.png',
     github: 'https://github.com/rabeelfatma/Project-Hospital-Management-System',
     linkedin: 'https://lnkd.in/p/dzZVpXy2',
@@ -56,6 +62,7 @@ const desktopProjects = [
 const networkingProjects = [
   {
     title: 'Hospital Management System (Networking)',
+    techStack: 'C#, Windows Forms, Networking, Sockets',
     image: '/images/networking-hospital.png',
     github: 'https://github.com/rabeelfatma/Networking-project-4th-Semester-Hospital-Management-System',
     linkedin: null,
@@ -66,6 +73,7 @@ const networkingProjects = [
 const mlProjects = [
   {
     title: 'House Rent Prediction System',
+    techStack: 'Python, Machine Learning',
     image: '/images/house-rent.png',
     github: 'https://github.com/rabeelfatma/Machine-Learning-Project-House-Rent-Prediction-5th-Semester-',
     linkedin: null,
@@ -75,21 +83,8 @@ const mlProjects = [
 
 const mobileApps = [
   {
-    title: 'Dice App',
-    image: '/images/dice-app.png',
-    video: 'https://drive.google.com/file/d/1X90fTXM52tz_rakMRKCGdD3tBEXyi0Io/preview',
-    github: `${REPO}/tree/main/lab6/my_dice_app`,
-    linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_multi-player-dice-game-app-using-flutter-activity-7472712738067243008-HFt8',
-  },
-  {
-    title: 'Profile App',
-    image: '/images/profile-app.png',
-    video: 'https://drive.google.com/file/d/1qjinvTe-KxO9iz3QGBGJALv4a21-aa6X/preview',
-    github: `${REPO}/tree/main/lab5/flutter_create_profile_app`,
-    linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_profile-app-made-with-flutter-description-activity-7473044659074785281-uNul',
-  },
-  {
     title: 'CGPA Calculator',
+    techStack: 'Flutter, Dart',
     image: '/images/cgpa-calculator.png',
     video: 'https://drive.google.com/file/d/1HjOfD7CSbdb4rDNt-N7lPuEcZLyl4HDN/preview',
     github: `${REPO}/tree/main/lab7/cgpa_calculator1`,
@@ -97,6 +92,7 @@ const mobileApps = [
   },
   {
     title: 'BMI App',
+    techStack: 'Flutter, Dart',
     image: '/images/bmi-app.png',
     video: 'https://drive.google.com/file/d/1D-CBmy4qaW504akEo-QrxaLRtWih0U8V/preview',
     github: `${REPO}/tree/main/bmi/bmi_app`,
@@ -104,6 +100,7 @@ const mobileApps = [
   },
   {
     title: 'Counter App',
+    techStack: 'Flutter, Dart',
     image: '/images/counter-app.png',
     video: 'https://drive.google.com/file/d/1ZjHWyWNKawbBSYyVXjwztutwFtijVhQ8/preview',
     github: `${REPO}/tree/main/lab4/counter_app`,
@@ -111,6 +108,7 @@ const mobileApps = [
   },
   {
     title: 'Committee Management App',
+    techStack: 'Flutter, Firebase, SQLite',
     image: '/images/committee-app.png',
     video: 'https://drive.google.com/file/d/1KB-u6sSTqqzGS5HXE_PNA-jJZWL3kX1b/preview',
     github: `${REPO}/tree/main/lab8/committe_app`,
@@ -118,6 +116,7 @@ const mobileApps = [
   },
   {
     title: 'POS App',
+    techStack: 'Flutter, Firebase, SQLite',
     image: '/images/pos-app.png',
     video: 'https://drive.google.com/file/d/1pQ0zFytzovvUfgQAathXCccjRmK5_ISH/preview',
     github: `${REPO}/tree/main/labfinal/pospharmacy`,
@@ -125,17 +124,16 @@ const mobileApps = [
   },
   {
     title: 'TaskBoard Pro',
+    techStack: 'Flutter, SQLite',
     image: '/images/taskboard.png',
     github: 'https://github.com/rabeelfatma/Flutter-Sp23-BSE-032-6A-Rabeel-Fatima/tree/main/labmid/task_management',
     linkedin: 'https://www.linkedin.com/posts/rabeel-fatima-0bb5b7415_taskboard-pro-smart-task-management-activity-7473069095521771520-fHDp',
   },
 ];
 
-const MOBILE_WIDTH = 'w-[140px] sm:w-[160px]';
-const MOBILE_ASPECT = 'aspect-[9/19]';
-const DESKTOP_ASPECT = 'aspect-video';
+const CARD_ASPECT = 'aspect-video';
 
-function SectionHeading({ text }) {
+function SectionHeading({ text, textColor = 'text-white' }) {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -158,29 +156,17 @@ function SectionHeading({ text }) {
   }, [displayedText, isDeleting, text]);
 
   return (
-    <h3 className="text-2xl font-bold mb-6 text-orange-500 border-l-4 border-orange-500 pl-3 inline-flex items-center">
+    <h3 className={`text-2xl font-bold mb-6 ${textColor} border-l-4 border-orange-500 pl-3 inline-flex items-center`}>
       <span>{displayedText}</span>
       <span className="ml-1 text-orange-500 animate-pulse">|</span>
     </h3>
   );
 }
 
-function MediaBox({ item, isMobile }) {
+function MediaBox({ item }) {
   return (
-    <div
-      className={
-        'w-full bg-black/50 overflow-hidden flex items-center justify-center ' +
-        (isMobile ? 'py-4 px-2 h-[280px] sm:h-[320px]' : DESKTOP_ASPECT)
-      }
-    >
-      <div
-        className={
-          'relative overflow-hidden bg-black ' +
-          (isMobile
-            ? `${MOBILE_WIDTH} ${MOBILE_ASPECT} rounded-2xl border-2 border-neutral-800 ring-2 ring-neutral-900/50 shadow-xl`
-            : 'w-full h-full')
-        }
-      >
+    <div className={`w-full bg-black/40 overflow-hidden flex items-center justify-center ${CARD_ASPECT}`}>
+      <div className="relative overflow-hidden bg-black w-full h-full">
         {item.image ? (
           <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
         ) : (
@@ -196,7 +182,7 @@ function MediaBox({ item, isMobile }) {
   );
 }
 
-function ProjectCard({ p, i, isMobile }) {
+function ProjectCard({ p, i }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40, scale: 0.9 }}
@@ -206,12 +192,20 @@ function ProjectCard({ p, i, isMobile }) {
       whileHover={{ y: -8, borderColor: '#f97316', boxShadow: '0 0 30px rgba(249,115,22,0.25)' }}
       className="rounded-2xl bg-[var(--card-bg)] border border-[var(--hairline)] transition overflow-hidden flex flex-col justify-between shadow-xl"
     >
-      <MediaBox item={p} isMobile={isMobile} />
+      <MediaBox item={p} />
 
       <div className="p-5 flex flex-col flex-1 justify-between bg-[var(--card-bg)] border-t border-[var(--hairline)]">
-        <h3 className="text-lg font-semibold text-orange-500 mb-4">{p.title}</h3>
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-1">{p.title}</h3>
+          {p.techStack && (
+            <p className="text-xs text-neutral-300 font-medium mb-4">
+              <span className="text-neutral-400 font-semibold">Technology Stack: </span>
+              {p.techStack}
+            </p>
+          )}
+        </div>
 
-        <div className="flex flex-wrap items-center gap-3 text-sm">
+        <div className="flex flex-wrap items-center gap-3 text-sm pt-2">
           {p.video && (
             <a
               href={p.video}
@@ -251,11 +245,11 @@ function ProjectCard({ p, i, isMobile }) {
   );
 }
 
-function ProjectGrid({ items, isMobile = false }) {
+function ProjectGrid({ items }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
       {items.map((p, i) => (
-        <ProjectCard key={p.title} p={p} i={i} isMobile={isMobile} />
+        <ProjectCard key={p.title} p={p} i={i} />
       ))}
     </div>
   );
@@ -265,32 +259,32 @@ export default function Projects() {
   return (
     <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-14">
-        <SectionHeading text="Projects" />
+        <SectionHeading text="Projects" textColor="text-orange-500" />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Web Applications" />
-        <ProjectGrid items={webProjects} isMobile={false} />
+        <SectionHeading text="Web Applications" textColor="text-white" />
+        <ProjectGrid items={webProjects} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Desktop Applications" />
-        <ProjectGrid items={desktopProjects} isMobile={false} />
+        <SectionHeading text="Desktop Applications" textColor="text-white" />
+        <ProjectGrid items={desktopProjects} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Machine Learning" />
-        <ProjectGrid items={mlProjects} isMobile={false} />
+        <SectionHeading text="Machine Learning" textColor="text-white" />
+        <ProjectGrid items={mlProjects} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Networking" />
-        <ProjectGrid items={networkingProjects} isMobile={false} />
+        <SectionHeading text="Networking" textColor="text-white" />
+        <ProjectGrid items={networkingProjects} />
       </div>
 
       <div>
-        <SectionHeading text="Mobile Apps Suite" />
-        <ProjectGrid items={mobileApps} isMobile={true} />
+        <SectionHeading text="Mobile Apps Suite" textColor="text-white" />
+        <ProjectGrid items={mobileApps} />
       </div>
     </section>
   );

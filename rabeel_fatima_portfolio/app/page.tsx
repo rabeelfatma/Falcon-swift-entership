@@ -7,6 +7,7 @@ import Education from '../components/Education';
 import Experience from '../components/Experience';
 import Skills from '../components/Skills';
 import ProjectsWithVideo from '../components/ProjectsWithVideo';
+import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
@@ -22,6 +23,7 @@ export default function Home() {
       <Experience />
       <Skills />
       <ProjectsWithVideo />
+      <Testimonials />
       <Contact />
       <Footer />
     </>
