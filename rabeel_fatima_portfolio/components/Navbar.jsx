@@ -5,7 +5,19 @@ import { Mail, Palette } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './BrandIcons';
 import ThemeToggle from './ThemeToggle';
 
-const links = ['Home', 'About', 'Services', 'Education', 'Experience', 'Skills', 'Projects', 'Testimonials', 'Contact'];
+const links = [
+  'Home',
+  'About',
+  'Services',
+  'Education',
+  'Experience',
+  'Skills',
+  'Achievements',
+  'Certificates',
+  'Projects',
+  'Testimonials',
+  'Contact'
+];
 
 // 6 Accent Color Themes
 const accentThemes = [
@@ -37,15 +49,15 @@ export default function Navbar() {
     >
       <span className="text-xl font-bold gradient-text">Rabeel Fatima</span>
 
-      {/* Nav Links */}
-      <div className="hidden md:flex items-center gap-8">
+      {/* Nav Links - Spacing reduced here (changed from gap-6 lg:gap-8 to gap-3 lg:gap-4) */}
+      <div className="hidden md:flex items-center gap-3 lg:gap-4">
         {links.map((link) => (
           <motion.a
             key={link}
             href={`#${link.toLowerCase()}`}
             whileHover={{ scale: 1.15, color: 'var(--accent)', y: -3 }}
             transition={{ type: 'spring', stiffness: 300 }}
-            className="relative transition text-[var(--text)]"
+            className="relative transition text-[var(--text)] text-sm font-medium"
           >
             {link}
           </motion.a>
