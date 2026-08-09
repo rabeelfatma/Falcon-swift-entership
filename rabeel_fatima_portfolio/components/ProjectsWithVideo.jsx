@@ -20,7 +20,7 @@ const webProjects = [
     image: '/images/portfolio.png',
     github: 'https://github.com/rabeelfatma/advance_web_Rabeel_032/tree/main/portfolio',
     linkedin: null,
-    video: 'https://drive.google.com/file/d/1JK-ASZ1Nh5K-KLZU8XjUkxHJjch-fSYv/preview',
+    video: 'https://drive.google.com/file/d/1cZTTft5kaYGUX1nJqGqSv95HOcm8GTWW/view?usp=drive_link',
   },
   {
     title: 'Coffee Management System',
