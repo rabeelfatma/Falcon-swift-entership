@@ -13,7 +13,6 @@ const links = [
   'Experience',
   'Skills',
   'Achievements',
-  'Certificates',
   'Projects',
   'Testimonials',
   'Contact'
