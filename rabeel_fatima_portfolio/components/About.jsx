@@ -152,7 +152,7 @@ export default function About() {
         className="flex justify-center sm:justify-start"
       >
         <motion.a
-          href="/images/cv.pdf"
+          href="/images/Rabeel_Fatima_CV.pdf"
           download
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
