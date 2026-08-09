@@ -30,6 +30,11 @@ html.light {
   --hairline: rgba(0, 0, 0, 0.1);
 }
 
+html {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
