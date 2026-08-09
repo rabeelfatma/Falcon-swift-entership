@@ -19,7 +19,7 @@ const webProjects = [
     techStack: 'Next.js, React, Tailwind CSS',
     image: '/images/portfolio.png',
     github: 'https://github.com/rabeelfatma/advance_web_Rabeel_032/tree/main/portfolio',
-    linkedin: null,
+    linkedin: 'https://lnkd.in/p/dzEBsGua',
     video: 'https://drive.google.com/file/d/1cZTTft5kaYGUX1nJqGqSv95HOcm8GTWW/view?usp=drive_link',
   },
   {
