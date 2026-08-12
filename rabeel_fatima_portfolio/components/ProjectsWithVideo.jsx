@@ -133,7 +133,7 @@ const mobileApps = [
 
 const CARD_ASPECT = 'aspect-video';
 
-function SectionHeading({ text, textColor = 'text-white' }) {
+function SectionHeading({ text, isMainHeading = false }) {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -156,24 +156,28 @@ function SectionHeading({ text, textColor = 'text-white' }) {
   }, [displayedText, isDeleting, text]);
 
   return (
-    <h3 className={`text-2xl font-bold mb-6 ${textColor} border-l-4 border-orange-500 pl-3 inline-flex items-center`}>
+    <h3 
+      className={`text-2xl font-bold mb-6 border-l-4 border-[var(--accent)] pl-3 inline-flex items-center ${
+        isMainHeading ? 'text-[var(--accent)]' : 'text-[var(--foreground)]'
+      }`}
+    >
       <span>{displayedText}</span>
-      <span className="ml-1 text-orange-500 animate-pulse">|</span>
+      <span className="ml-1 text-[var(--accent)] animate-pulse">|</span>
     </h3>
   );
 }
 
 function MediaBox({ item }) {
   return (
-    <div className={`w-full bg-black/40 overflow-hidden flex items-center justify-center ${CARD_ASPECT}`}>
-      <div className="relative overflow-hidden bg-black w-full h-full">
+    <div className={`w-full bg-[var(--card-bg)] overflow-hidden flex items-center justify-center ${CARD_ASPECT}`}>
+      <div className="relative overflow-hidden bg-[var(--card-bg)] w-full h-full">
         {item.image ? (
           <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-center p-3 border border-dashed border-neutral-700 rounded-xl bg-neutral-900/80">
+          <div className="w-full h-full flex items-center justify-center text-center p-3 border border-dashed border-[var(--hairline)] rounded-xl bg-[var(--card-bg)]">
             <div>
-              <p className="text-white font-semibold text-xs mb-1">{item.title}</p>
-              <p className="text-neutral-400 text-[10px]">Preview Card</p>
+              <p className="text-[var(--foreground)] font-semibold text-xs mb-1">{item.title}</p>
+              <p className="text-[var(--muted-foreground)] text-[10px]">Preview Card</p>
             </div>
           </div>
         )}
@@ -189,17 +193,21 @@ function ProjectCard({ p, i }) {
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, delay: (i % 3) * 0.1, type: 'spring', stiffness: 120 }}
-      whileHover={{ y: -8, borderColor: '#f97316', boxShadow: '0 0 30px rgba(249,115,22,0.25)' }}
+      whileHover={{ 
+        y: -8, 
+        borderColor: 'var(--accent)', 
+        boxShadow: '0 0 25px var(--accent-glow, rgba(249,115,22,0.25))' 
+      }}
       className="rounded-2xl bg-[var(--card-bg)] border border-[var(--hairline)] transition overflow-hidden flex flex-col justify-between shadow-xl"
     >
       <MediaBox item={p} />
 
       <div className="p-5 flex flex-col flex-1 justify-between bg-[var(--card-bg)] border-t border-[var(--hairline)]">
         <div>
-          <h3 className="text-lg font-semibold text-white mb-1">{p.title}</h3>
+          <h3 className="text-lg font-semibold text-[var(--foreground)] mb-1">{p.title}</h3>
           {p.techStack && (
-            <p className="text-xs text-neutral-300 font-medium mb-4">
-              <span className="text-neutral-400 font-semibold">Technology Stack: </span>
+            <p className="text-xs text-[var(--muted-foreground)] font-medium mb-4">
+              <span className="text-[var(--foreground)] font-semibold">Technology Stack: </span>
               {p.techStack}
             </p>
           )}
@@ -211,7 +219,7 @@ function ProjectCard({ p, i }) {
               href={p.video}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/40 bg-orange-500/10 text-orange-400 font-medium hover:bg-orange-500 hover:text-black hover:border-orange-500 hover:shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all duration-300"
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 text-[var(--accent)] font-medium hover:bg-[var(--accent)] hover:text-[var(--card-bg)] hover:border-[var(--accent)] transition-all duration-300"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                 <path d="M8 5v14l11-7-11-7z" />
@@ -224,7 +232,7 @@ function ProjectCard({ p, i }) {
               href={p.github}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 text-orange-500 hover:underline"
+              className="flex items-center gap-1.5 text-[var(--accent)] hover:underline"
             >
               <GithubIcon size={18} /> GitHub
             </a>
@@ -234,7 +242,7 @@ function ProjectCard({ p, i }) {
               href={p.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 text-[var(--accent-3)] hover:underline"
+              className="flex items-center gap-1.5 text-[var(--accent-3,var(--accent))] hover:underline"
             >
               <LinkedinIcon size={18} /> LinkedIn
             </a>
@@ -257,33 +265,33 @@ function ProjectGrid({ items }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
+    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto text-[var(--foreground)]">
       <div className="text-center mb-14">
-        <SectionHeading text="Projects" textColor="text-orange-500" />
+        <SectionHeading text="Projects" isMainHeading={true} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Web Applications" textColor="text-white" />
+        <SectionHeading text="Web Applications" />
         <ProjectGrid items={webProjects} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Desktop Applications" textColor="text-white" />
+        <SectionHeading text="Desktop Applications" />
         <ProjectGrid items={desktopProjects} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Machine Learning" textColor="text-white" />
+        <SectionHeading text="Machine Learning" />
         <ProjectGrid items={mlProjects} />
       </div>
 
       <div className="mb-16">
-        <SectionHeading text="Networking" textColor="text-white" />
+        <SectionHeading text="Networking" />
         <ProjectGrid items={networkingProjects} />
       </div>
 
       <div>
-        <SectionHeading text="Mobile Apps Suite" textColor="text-white" />
+        <SectionHeading text="Mobile Apps Suite" />
         <ProjectGrid items={mobileApps} />
       </div>
     </section>
