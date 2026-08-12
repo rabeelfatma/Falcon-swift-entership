@@ -62,8 +62,13 @@ function StatCard({ item, index, active }) {
 
   return (
     <div
-      className="group relative w-full rounded-2xl border border-orange-500/25 bg-neutral-950/80 backdrop-blur-sm p-6 overflow-hidden hover:border-orange-500 hover:-translate-y-1 transition-all duration-300 animate-fadeUp"
-      style={{ animationDelay: `${index * 150}ms`, animationFillMode: "backwards" }}
+      className="group relative w-full rounded-2xl border backdrop-blur-sm p-6 overflow-hidden hover:border-orange-500 hover:-translate-y-1 transition-all duration-300 animate-fadeUp"
+      style={{
+        animationDelay: `${index * 150}ms`,
+        animationFillMode: "backwards",
+        background: "var(--card-bg)",
+        borderColor: "var(--card-border)"
+      }}
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent" />
 
@@ -71,13 +76,26 @@ function StatCard({ item, index, active }) {
         {item.icon}
       </div>
 
-      <div className="text-3xl md:text-4xl font-bold text-white font-mono tabular-nums">
+      <div
+        className="text-3xl md:text-4xl font-bold font-mono tabular-nums"
+        style={{ color: "var(--text)" }}
+      >
         {displayValue}
         <span className="text-orange-500">{item.suffix}</span>
       </div>
 
-      <p className="mt-1 text-sm font-semibold text-neutral-200">{item.label}</p>
-      <p className="mt-1 text-xs text-neutral-500 leading-relaxed">{item.desc}</p>
+      <p
+        className="mt-1 text-sm font-semibold"
+        style={{ color: "var(--text)" }}
+      >
+        {item.label}
+      </p>
+      <p
+        className="mt-1 text-xs leading-relaxed"
+        style={{ color: "var(--text-dim)" }}
+      >
+        {item.desc}
+      </p>
     </div>
   );
 }
@@ -131,7 +149,8 @@ export default function Achievements() {
     <section
       id="achievements"
       ref={sectionRef}
-      className="relative bg-black text-neutral-100 px-6 md:px-16 py-20 overflow-hidden"
+      className="relative px-6 md:px-16 py-20 overflow-hidden"
+      style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
     >
       {/* Dynamic Starfield Background */}
       {stars.map((s, i) => (

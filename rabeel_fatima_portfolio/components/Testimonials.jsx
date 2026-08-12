@@ -69,7 +69,8 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative w-full bg-black py-24 px-6 overflow-hidden"
+      className="relative w-full py-24 px-6 overflow-hidden"
+      style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
     >
       {/* ambient glow accents */}
       <div className="pointer-events-none absolute -top-32 -left-32 h-72 w-72 rounded-full bg-orange-600/20 blur-3xl" />
@@ -105,10 +106,17 @@ export default function Testimonials() {
                 boxShadow: "0 0 30px rgba(249,115,22,0.18)",
               }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="rounded-xl border border-orange-500/10 bg-[#0c0c0c] p-6"
+              className="rounded-xl border p-6"
+              style={{
+                background: "var(--card-bg)",
+                borderColor: "var(--card-border)"
+              }}
             >
               {/* quote text */}
-              <p className="text-orange-200/80 text-sm leading-relaxed mb-6">
+              <p
+                className="text-sm leading-relaxed mb-6"
+                style={{ color: "var(--text-dim)" }}
+              >
                 "{t.text}"
               </p>
 
@@ -121,7 +129,12 @@ export default function Testimonials() {
                   <h4 className="text-sm font-semibold text-orange-500">
                     {t.name}
                   </h4>
-                  <p className="text-xs text-orange-400/70">{t.role}</p>
+                  <p
+                    className="text-xs"
+                    style={{ color: "var(--text-dim)" }}
+                  >
+                    {t.role}
+                  </p>
                 </div>
               </div>
 
