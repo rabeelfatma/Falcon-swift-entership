@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-// Convert "#fb7a1f" or "rgb(251,122,31)" to "r, g, b" string
 function toRgbTriplet(color) {
   const trimmed = color.trim();
   if (trimmed.startsWith("#")) {
@@ -19,22 +18,13 @@ function toRgbTriplet(color) {
   if (match && match.length >= 3) {
     return `${match[0]}, ${match[1]}, ${match[2]}`;
   }
-  return "251, 122, 31"; // fallback orange
+  return "251, 122, 31";
 }
 
-// Safe default used during SSR / before mount — real values are read
-// client-side inside useEffect via readPalette()
 const DEFAULT_PALETTE = {
-  particles: [
-    "rgba(255, 157, 77, ALPHA)",
-    "rgba(255, 91, 31, ALPHA)",
-    "rgba(251, 122, 31, ALPHA)",
-    "rgba(255, 255, 255, ALPHA)",
-    "rgba(255, 91, 31, ALPHA)",
-  ],
   accentTriplet: "251, 122, 31",
+  accent2Triplet: "255, 157, 77",
   accent3Triplet: "255, 91, 31",
-  bg: "#05050a",
 };
 
 function readPalette() {
@@ -45,19 +35,11 @@ function readPalette() {
   const accent = toRgbTriplet(styles.getPropertyValue("--accent") || "#fb7a1f");
   const accent2 = toRgbTriplet(styles.getPropertyValue("--accent-2") || "#ff9d4d");
   const accent3 = toRgbTriplet(styles.getPropertyValue("--accent-3") || "#ff5b1f");
-  const bg = styles.getPropertyValue("--bg").trim() || "#05050a";
 
   return {
-    particles: [
-      `rgba(${accent2}, ALPHA)`,
-      `rgba(${accent3}, ALPHA)`,
-      `rgba(${accent}, ALPHA)`,
-      `rgba(255, 255, 255, ALPHA)`,
-      `rgba(${accent3}, ALPHA)`,
-    ],
     accentTriplet: accent,
+    accent2Triplet: accent2,
     accent3Triplet: accent3,
-    bg,
   };
 }
 
@@ -66,7 +48,6 @@ export default function Background() {
   const paletteRef = useRef(DEFAULT_PALETTE);
 
   useEffect(() => {
-    // Safe here — this effect only ever runs in the browser
     paletteRef.current = readPalette();
 
     const canvas = canvasRef.current;
@@ -93,91 +74,90 @@ export default function Background() {
       reset() {
         this.x = rand(0, W);
         this.y = rand(0, H);
-        this.r = rand(0.5, 2);
-        this.baseAlpha = rand(0.15, 0.55);
-        this.speedX = rand(-0.08, 0.08);
-        this.speedY = rand(-0.08, 0.08);
-        this.colorIndex = Math.floor(rand(0, paletteRef.current.particles.length));
-        this.twinkleSpeed = rand(0.0015, 0.005);
-        this.twinklePhase = rand(0, Math.PI * 2);
+        this.r = rand(0.6, 1.4); // Dots size reduced for a refined look
+        this.speedX = rand(-0.25, 0.25);
+        this.speedY = rand(-0.25, 0.25);
       }
-      update(t) {
+      update() {
         this.x += this.speedX;
         this.y += this.speedY;
+
         if (this.x < -10) this.x = W + 10;
         if (this.x > W + 10) this.x = -10;
         if (this.y < -10) this.y = H + 10;
         if (this.y > H + 10) this.y = -10;
-        this.alpha =
-          this.baseAlpha *
-          (0.75 + 0.25 * Math.sin(t * this.twinkleSpeed + this.twinklePhase));
       }
       draw() {
-        const list = paletteRef.current.particles;
-        const template = list[this.colorIndex] || list[0];
-        const c = template.replace("ALPHA", this.alpha.toFixed(3));
+        const { accent2Triplet, accentTriplet } = paletteRef.current;
+
         ctx.beginPath();
-        ctx.fillStyle = c;
+        ctx.fillStyle = `rgb(${accent2Triplet})`;
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
         ctx.fill();
-        if (this.r > 1.6) {
-          const glow = ctx.createRadialGradient(
-            this.x,
-            this.y,
-            0,
-            this.x,
-            this.y,
-            this.r * 6
-          );
-          glow.addColorStop(
-            0,
-            template.replace("ALPHA", (this.alpha * 0.35).toFixed(3))
-          );
-          glow.addColorStop(1, template.replace("ALPHA", "0"));
-          ctx.fillStyle = glow;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r * 6, 0, Math.PI * 2);
-          ctx.fill();
-        }
+
+        const glow = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.r * 3.5
+        );
+        glow.addColorStop(0, `rgba(${accentTriplet}, 0.35)`);
+        glow.addColorStop(1, `rgba(${accentTriplet}, 0)`);
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r * 3.5, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
 
     const particles = [];
-    const PARTICLE_COUNT = 90;
+    const PARTICLE_COUNT = 65;
+    const MAX_DIST = 125;
+
     for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
-    function drawBackgroundGradient() {
-      const { accentTriplet, accent3Triplet, bg } = paletteRef.current;
-      const g = ctx.createRadialGradient(
-        W * 0.5,
-        H * 0.45,
-        0,
-        W * 0.5,
-        H * 0.45,
-        Math.max(W, H) * 0.75
-      );
-      g.addColorStop(0, `rgba(${accentTriplet}, 0.12)`);
-      g.addColorStop(0.5, `rgba(${accent3Triplet}, 0.05)`);
-      g.addColorStop(1, bg);
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, W, H);
+    function connectParticles() {
+      const { accentTriplet } = paletteRef.current;
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < MAX_DIST) {
+            const alpha = (1 - dist / MAX_DIST) * 0.22;
+            
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(${accentTriplet}, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
     }
 
-    function animate(t) {
-      drawBackgroundGradient();
-      for (const p of particles) {
-        p.update(t);
-        p.draw();
+    function animate() {
+      // Check if light mode is active on html tag
+      const isLightMode = document.documentElement.classList.contains("light");
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Light mode mein background animation skip kar do
+      if (!isLightMode) {
+        connectParticles();
+        for (const p of particles) {
+          p.update();
+          p.draw();
+        }
       }
+
       animationId = requestAnimationFrame(animate);
     }
     animationId = requestAnimationFrame(animate);
 
     const observer = new MutationObserver(() => {
       paletteRef.current = readPalette();
-      particles.forEach((p) => {
-        p.colorIndex = Math.floor(rand(0, paletteRef.current.particles.length));
-      });
     });
     observer.observe(document.documentElement, {
       attributes: true,
@@ -202,6 +182,7 @@ export default function Background() {
         height: "100%",
         zIndex: -1,
         display: "block",
+        pointerEvents: "none",
       }}
     />
   );

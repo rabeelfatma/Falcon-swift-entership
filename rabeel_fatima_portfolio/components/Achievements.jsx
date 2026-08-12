@@ -162,8 +162,8 @@ export default function Achievements() {
     <section
       id="achievements"
       ref={sectionRef}
-      className="relative px-6 md:px-16 py-20 overflow-hidden"
-      style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
+      className="relative px-6 md:px-16 py-20 overflow-hidden bg-transparent"
+      style={{ color: "var(--text)" }}
     >
       {/* Dynamic Starfield Background */}
       {stars.map((s, i) => (
@@ -243,7 +243,7 @@ export default function Achievements() {
               {/* Main Cup Body */}
               <path d="M65 40h70l-6 55c-3 24-24 38-29 38s-26-14-29-38z" fill="url(#trophyGold)" />
               
-              {/* Rim Rim Top */}
+              {/* Rim Top */}
               <rect x="60" y="34" width="80" height="12" rx="6" fill="var(--accent-2)" />
 
               {/* Emblem Star */}

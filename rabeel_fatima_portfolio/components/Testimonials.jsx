@@ -69,8 +69,8 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative w-full py-24 px-6 overflow-hidden"
-      style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
+      className="relative w-full py-24 px-6 overflow-hidden bg-transparent"
+      style={{ color: "var(--text)" }}
     >
       {/* ambient glow accents — now theme-reactive */}
       <div
