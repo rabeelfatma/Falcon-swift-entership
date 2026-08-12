@@ -23,7 +23,6 @@ export default function Education() {
         whileHover={{ y: -4 }}
         className="card rounded-xl p-6"
       >
-        {/* University row */}
         <div className="flex items-center gap-4 mb-6">
           <span className="shrink-0 w-14 h-14 rounded-full overflow-hidden bg-white flex items-center justify-center border border-[var(--accent)]/40">
             <Image
@@ -37,7 +36,6 @@ export default function Education() {
           <h3 className="text-lg font-semibold text-[var(--text)]">{education.institute}</h3>
         </div>
 
-        {/* Department & Program boxes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <motion.div
             initial={{ opacity: 0, y: 15 }}

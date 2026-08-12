@@ -143,14 +143,14 @@ export default function Contact() {
           <motion.button
             type="submit"
             disabled={status === 'sending'}
-            whileHover={{ scale: 1.04, boxShadow: '0 0 25px rgba(251,122,31,0.4)' }}
+            whileHover={{ scale: 1.04, boxShadow: '0 0 25px color-mix(in srgb, var(--accent) 40%, transparent)' }}
             whileTap={{ scale: 0.96 }}
             className="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-3)] text-white px-6 py-3 rounded-full font-medium transition disabled:opacity-50"
           >
             {status === 'sending' ? 'Sending...' : 'Send Message'}
           </motion.button>
           
-          {/* Status text with orange theme color & auto-disappear */}
+          {/* Status text with theme accent color & auto-disappear */}
           {status === 'success' && (
             <motion.p 
               initial={{ opacity: 0, y: -5 }} 
@@ -179,7 +179,7 @@ export default function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(251,122,31,0.4)' }}
+        whileHover={{ scale: 1.1, boxShadow: '0 0 25px color-mix(in srgb, var(--accent) 40%, transparent)' }}
         whileTap={{ scale: 0.92 }}
         aria-label="Scroll to top"
         className="mt-16 mx-auto flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-3)] text-white"

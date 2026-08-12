@@ -3,9 +3,6 @@ import { motion } from 'framer-motion';
 import { Code2, Globe, Layers, Smartphone, MonitorSmartphone } from 'lucide-react';
 import TypedOnView from './TypedOnView';
 
-// Proficiency levels are derived from real usage across my academic projects
-// (e.g. C# / WPF / SQL Server power 3 desktop apps, Flutter powers 7 mobile apps,
-// MERN powers the Expense Management System, Laravel powers the Coffee Management System).
 const skillGroups = [
   {
     title: 'Languages',

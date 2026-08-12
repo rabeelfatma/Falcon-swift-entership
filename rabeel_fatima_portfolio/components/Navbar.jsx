@@ -18,14 +18,14 @@ const links = [
   'Contact'
 ];
 
-// 6 Accent Color Themes
+// 6 Accent Color Themes (accent, accent-2, accent-3)
 const accentThemes = [
-  { name: 'Orange', accent: '#fb7a1f', accent3: '#ff5b1f' },
-  { name: 'Cyan', accent: '#06b6d4', accent3: '#3b82f6' },
-  { name: 'Purple', accent: '#a855f7', accent3: '#ec4899' },
-  { name: 'Emerald', accent: '#10b981', accent3: '#059669' },
-  { name: 'Rose', accent: '#f43f5e', accent3: '#e11d48' },
-  { name: 'Amber', accent: '#f59e0b', accent3: '#d97706' },
+  { name: 'Orange', accent: '#fb7a1f', accent2: '#ffb37a', accent3: '#ff5b1f' },
+  { name: 'Cyan', accent: '#06b6d4', accent2: '#67e8f9', accent3: '#3b82f6' },
+  { name: 'Purple', accent: '#a855f7', accent2: '#d8b4fe', accent3: '#ec4899' },
+  { name: 'Emerald', accent: '#10b981', accent2: '#6ee7b7', accent3: '#059669' },
+  { name: 'Rose', accent: '#f43f5e', accent2: '#fda4af', accent3: '#e11d48' },
+  { name: 'Amber', accent: '#f59e0b', accent2: '#fcd34d', accent3: '#d97706' },
 ];
 
 export default function Navbar() {
@@ -34,8 +34,9 @@ export default function Navbar() {
 
   const changeAccent = (theme) => {
     setActiveTheme(theme.name);
-    // Dynamic CSS variables change karna
+    // Dynamic CSS variables change karna — teeno set karna zaroori hai
     document.documentElement.style.setProperty('--accent', theme.accent);
+    document.documentElement.style.setProperty('--accent-2', theme.accent2);
     document.documentElement.style.setProperty('--accent-3', theme.accent3);
   };
 
@@ -48,7 +49,6 @@ export default function Navbar() {
     >
       <span className="text-xl font-bold gradient-text">Rabeel Fatima</span>
 
-      {/* Nav Links - Spacing reduced here (changed from gap-6 lg:gap-8 to gap-3 lg:gap-4) */}
       <div className="hidden md:flex items-center gap-3 lg:gap-4">
         {links.map((link) => (
           <motion.a
@@ -63,10 +63,7 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Right Controls: Theme Selector & Theme Toggle together, then Links */}
       <div className="flex items-center gap-3 text-[var(--text-dim)]">
-        
-        {/* 1. Theme Palette Icon (With Expandable Popup) */}
         <div className="relative flex items-center">
           <motion.button
             whileHover={{ scale: 1.2, color: 'var(--accent)' }}
@@ -78,7 +75,6 @@ export default function Navbar() {
             <Palette size={20} />
           </motion.button>
 
-          {/* Animated Expandable Color Pill */}
           <AnimatePresence>
             {isThemeOpen && (
               <motion.div
@@ -108,38 +104,34 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
 
-        {/* 2. Theme Toggle (Right next to Palette) */}
         <ThemeToggle />
 
-        {/* Vertical Separator */}
         <span className="w-px h-5 bg-[var(--hairline)] mx-1" />
 
-        {/* 3. Social Links (Placed after the toggle) */}
         <div className="flex items-center gap-3">
-          <motion.a 
-            href="https://github.com/rabeelfatma" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <motion.a
+            href="https://github.com/rabeelfatma"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.25, color: 'var(--accent)' }}
           >
             <GithubIcon size={18} />
           </motion.a>
-          <motion.a 
-            href="https://www.linkedin.com/in/rabeel-fatima-0bb5b7415" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <motion.a
+            href="https://www.linkedin.com/in/rabeel-fatima-0bb5b7415"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.25, color: 'var(--accent)' }}
           >
             <LinkedinIcon size={18} />
           </motion.a>
-          <motion.a 
-            href="mailto:rabeel1937a@gmail.com" 
+          <motion.a
+            href="mailto:rabeel1937a@gmail.com"
             whileHover={{ scale: 1.25, color: 'var(--accent)' }}
           >
             <Mail size={18} />
           </motion.a>
         </div>
-
       </div>
     </motion.nav>
   );

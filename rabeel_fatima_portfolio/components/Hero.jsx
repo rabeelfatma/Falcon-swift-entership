@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Mail, ChevronDown } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './BrandIcons';
 
-// Inline icons (add to BrandIcons.jsx later if you'd like)
 function TwitterIcon({ size = 20 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -57,7 +56,7 @@ export default function Hero() {
           transition={{ delay: 0.5, duration: 0.6, type: 'spring' }}
           className="text-[var(--text-dim)] mb-2"
         >
-          Always curious, always building.I enjoy picking up new tools and frameworks
+          Always curious, always building. I enjoy picking up new tools and frameworks
           quickly and shipping projects that actually work end to end.
         </motion.p>
 
@@ -67,7 +66,7 @@ export default function Hero() {
           transition={{ delay: 0.7, duration: 0.6, type: 'spring' }}
           className="text-[var(--text-dim)] mb-8"
         >
-          Turning ideas into intelligent, real-world solutionsone project at a time.
+          Turning ideas into intelligent, real-world solutions — one project at a time.
         </motion.p>
 
         <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -76,7 +75,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.1, duration: 0.6, type: 'spring', stiffness: 150 }}
-            whileHover={{ scale: 1.1, boxShadow: '0 0 35px rgba(251,122,31,0.55)' }}
+            whileHover={{ scale: 1.1, boxShadow: '0 0 35px color-mix(in srgb, var(--accent) 55%, transparent)' }}
             whileTap={{ scale: 0.92 }}
             className="inline-block bg-gradient-to-r from-[var(--accent)] to-[var(--accent-3)] text-white px-6 py-3 rounded-full font-medium transition"
           >
@@ -88,7 +87,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.6, type: 'spring', stiffness: 150 }}
-            whileHover={{ scale: 1.1, boxShadow: '0 0 35px rgba(251,122,31,0.55)' }}
+            whileHover={{ scale: 1.1, boxShadow: '0 0 35px color-mix(in srgb, var(--accent) 55%, transparent)' }}
             whileTap={{ scale: 0.92 }}
             className="inline-block bg-gradient-to-r from-[var(--accent)] to-[var(--accent-3)] text-white px-6 py-3 rounded-full font-medium transition"
           >
@@ -126,19 +125,19 @@ export default function Hero() {
         transition={{ duration: 1, delay: 0.2, type: 'spring', stiffness: 90 }}
         className="flex-shrink-0 z-10 relative w-64 h-64 md:w-80 md:h-80"
       >
-        {/* Rotating partial gradient arc — not a full ring, just a glowing sweep */}
+        {/* Rotating partial gradient arc — now theme-reactive via color-mix() */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
           className="absolute -inset-3 rounded-full"
           style={{
-            background: 'conic-gradient(from 0deg, transparent 0%, transparent 78%, rgba(251,122,31,0.9) 92%, transparent 100%)',
+            background:
+              'conic-gradient(from 0deg, transparent 0%, transparent 78%, color-mix(in srgb, var(--accent) 90%, transparent) 92%, transparent 100%)',
             WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))',
             mask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))',
           }}
         />
 
-        {/* Pulsing "+" accent marks at the four diagonal corners */}
         {[
           { top: '-6%', left: '-6%', delay: 0 },
           { top: '-6%', right: '-6%', delay: 0.4 },
@@ -157,7 +156,13 @@ export default function Hero() {
         ))}
 
         <motion.div
-          animate={{ boxShadow: ['0 0 40px 5px rgba(251,122,31,0.3)', '0 0 70px 15px rgba(255,91,31,0.4)', '0 0 40px 5px rgba(251,122,31,0.3)'] }}
+          animate={{
+            boxShadow: [
+              '0 0 40px 5px color-mix(in srgb, var(--accent) 30%, transparent)',
+              '0 0 70px 15px color-mix(in srgb, var(--accent-3) 40%, transparent)',
+              '0 0 40px 5px color-mix(in srgb, var(--accent) 30%, transparent)',
+            ],
+          }}
           transition={{ duration: 3, repeat: Infinity }}
           className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-[var(--accent)]/50"
         >

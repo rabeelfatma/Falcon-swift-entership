@@ -60,7 +60,7 @@ export default function Services() {
               whileHover={{ 
                 y: -8, 
                 borderColor: 'var(--accent)', 
-                boxShadow: '0 0 30px rgba(251,122,31,0.2)' 
+                boxShadow: '0 0 30px color-mix(in srgb, var(--accent) 20%, transparent)' 
               }}
               className="p-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--hairline)] transition-all flex flex-col justify-between h-full"
             >

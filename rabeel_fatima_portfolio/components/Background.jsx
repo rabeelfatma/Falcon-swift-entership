@@ -2,11 +2,75 @@
 
 import { useEffect, useRef } from "react";
 
+// Convert "#fb7a1f" or "rgb(251,122,31)" to "r, g, b" string
+function toRgbTriplet(color) {
+  const trimmed = color.trim();
+  if (trimmed.startsWith("#")) {
+    let hex = trimmed.slice(1);
+    if (hex.length === 3) {
+      hex = hex.split("").map((c) => c + c).join("");
+    }
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `${r}, ${g}, ${b}`;
+  }
+  const match = trimmed.match(/\d+/g);
+  if (match && match.length >= 3) {
+    return `${match[0]}, ${match[1]}, ${match[2]}`;
+  }
+  return "251, 122, 31"; // fallback orange
+}
+
+// Safe default used during SSR / before mount — real values are read
+// client-side inside useEffect via readPalette()
+const DEFAULT_PALETTE = {
+  particles: [
+    "rgba(255, 157, 77, ALPHA)",
+    "rgba(255, 91, 31, ALPHA)",
+    "rgba(251, 122, 31, ALPHA)",
+    "rgba(255, 255, 255, ALPHA)",
+    "rgba(255, 91, 31, ALPHA)",
+  ],
+  accentTriplet: "251, 122, 31",
+  accent3Triplet: "255, 91, 31",
+  bg: "#05050a",
+};
+
+function readPalette() {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return DEFAULT_PALETTE;
+  }
+  const styles = getComputedStyle(document.documentElement);
+  const accent = toRgbTriplet(styles.getPropertyValue("--accent") || "#fb7a1f");
+  const accent2 = toRgbTriplet(styles.getPropertyValue("--accent-2") || "#ff9d4d");
+  const accent3 = toRgbTriplet(styles.getPropertyValue("--accent-3") || "#ff5b1f");
+  const bg = styles.getPropertyValue("--bg").trim() || "#05050a";
+
+  return {
+    particles: [
+      `rgba(${accent2}, ALPHA)`,
+      `rgba(${accent3}, ALPHA)`,
+      `rgba(${accent}, ALPHA)`,
+      `rgba(255, 255, 255, ALPHA)`,
+      `rgba(${accent3}, ALPHA)`,
+    ],
+    accentTriplet: accent,
+    accent3Triplet: accent3,
+    bg,
+  };
+}
+
 export default function Background() {
   const canvasRef = useRef(null);
+  const paletteRef = useRef(DEFAULT_PALETTE);
 
   useEffect(() => {
+    // Safe here — this effect only ever runs in the browser
+    paletteRef.current = readPalette();
+
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let W, H;
     let animationId;
@@ -17,15 +81,6 @@ export default function Background() {
     }
     window.addEventListener("resize", resize);
     resize();
-
-    // Orange / black palette matching the portfolio theme
-    const palette = [
-      "rgba(255, 138, 61, ALPHA)", // main orange
-      "rgba(255, 106, 0, ALPHA)", // deep orange
-      "rgba(255, 190, 130, ALPHA)", // light peach
-      "rgba(255, 220, 180, ALPHA)", // near white warm
-      "rgba(120, 60, 20, ALPHA)", // dim ember
-    ];
 
     function rand(min, max) {
       return Math.random() * (max - min) + min;
@@ -42,7 +97,7 @@ export default function Background() {
         this.baseAlpha = rand(0.15, 0.55);
         this.speedX = rand(-0.08, 0.08);
         this.speedY = rand(-0.08, 0.08);
-        this.color = palette[Math.floor(rand(0, palette.length))];
+        this.colorIndex = Math.floor(rand(0, paletteRef.current.particles.length));
         this.twinkleSpeed = rand(0.0015, 0.005);
         this.twinklePhase = rand(0, Math.PI * 2);
       }
@@ -58,7 +113,9 @@ export default function Background() {
           (0.75 + 0.25 * Math.sin(t * this.twinkleSpeed + this.twinklePhase));
       }
       draw() {
-        const c = this.color.replace("ALPHA", this.alpha.toFixed(3));
+        const list = paletteRef.current.particles;
+        const template = list[this.colorIndex] || list[0];
+        const c = template.replace("ALPHA", this.alpha.toFixed(3));
         ctx.beginPath();
         ctx.fillStyle = c;
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
@@ -74,9 +131,9 @@ export default function Background() {
           );
           glow.addColorStop(
             0,
-            this.color.replace("ALPHA", (this.alpha * 0.35).toFixed(3))
+            template.replace("ALPHA", (this.alpha * 0.35).toFixed(3))
           );
-          glow.addColorStop(1, this.color.replace("ALPHA", "0"));
+          glow.addColorStop(1, template.replace("ALPHA", "0"));
           ctx.fillStyle = glow;
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.r * 6, 0, Math.PI * 2);
@@ -90,6 +147,7 @@ export default function Background() {
     for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
     function drawBackgroundGradient() {
+      const { accentTriplet, accent3Triplet, bg } = paletteRef.current;
       const g = ctx.createRadialGradient(
         W * 0.5,
         H * 0.45,
@@ -98,9 +156,9 @@ export default function Background() {
         H * 0.45,
         Math.max(W, H) * 0.75
       );
-      g.addColorStop(0, "#1a0d05");
-      g.addColorStop(0.5, "#100702");
-      g.addColorStop(1, "#050201");
+      g.addColorStop(0, `rgba(${accentTriplet}, 0.12)`);
+      g.addColorStop(0.5, `rgba(${accent3Triplet}, 0.05)`);
+      g.addColorStop(1, bg);
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
     }
@@ -115,9 +173,21 @@ export default function Background() {
     }
     animationId = requestAnimationFrame(animate);
 
+    const observer = new MutationObserver(() => {
+      paletteRef.current = readPalette();
+      particles.forEach((p) => {
+        p.colorIndex = Math.floor(rand(0, paletteRef.current.particles.length));
+      });
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
+
     return () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
+      observer.disconnect();
     };
   }, []);
 
