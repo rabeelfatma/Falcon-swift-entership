@@ -180,7 +180,7 @@ function MediaBox({ item }) {
           <>
             <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
             
-            {/* Theme Overlay Tint: Theme Change karne par image ka color tone dynamic change hoga */}
+            {/* Theme Overlay Tint */}
             <div 
               className="absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-20 group-hover:opacity-10"
               style={{ 
@@ -289,7 +289,7 @@ function ProjectCard({ p, i }) {
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-1.5 hover:underline"
-              style={{ color: 'var(--accent-3, var(--accent))' }}
+              style={{ color: 'var(--accent)' }}
             >
               <LinkedinIcon size={18} /> LinkedIn
             </a>
