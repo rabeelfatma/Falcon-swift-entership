@@ -133,7 +133,7 @@ const mobileApps = [
 
 const CARD_ASPECT = 'aspect-video';
 
-function SectionHeading({ text, isMainHeading = false }) {
+function SectionHeading({ text }) {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -157,27 +157,53 @@ function SectionHeading({ text, isMainHeading = false }) {
 
   return (
     <h3 
-      className={`text-2xl font-bold mb-6 border-l-4 border-[var(--accent)] pl-3 inline-flex items-center ${
-        isMainHeading ? 'text-[var(--accent)]' : 'text-[var(--foreground)]'
-      }`}
+      className="text-2xl font-bold mb-6 pl-3 inline-flex items-center border-l-4"
+      style={{
+        borderColor: 'var(--accent)',
+        color: 'var(--accent)',
+      }}
     >
       <span>{displayedText}</span>
-      <span className="ml-1 text-[var(--accent)] animate-pulse">|</span>
+      <span className="ml-1 animate-pulse" style={{ color: 'var(--accent)' }}>|</span>
     </h3>
   );
 }
 
 function MediaBox({ item }) {
   return (
-    <div className={`w-full bg-[var(--card-bg)] overflow-hidden flex items-center justify-center ${CARD_ASPECT}`}>
-      <div className="relative overflow-hidden bg-[var(--card-bg)] w-full h-full">
+    <div 
+      className={`w-full overflow-hidden flex items-center justify-center ${CARD_ASPECT}`}
+      style={{ backgroundColor: 'var(--card-bg)' }}
+    >
+      <div className="relative overflow-hidden w-full h-full group" style={{ backgroundColor: 'var(--card-bg)' }}>
         {item.image ? (
-          <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+          <>
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+            
+            {/* Theme Overlay Tint: Theme Change karne par image ka color tone dynamic change hoga */}
+            <div 
+              className="absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-20 group-hover:opacity-10"
+              style={{ 
+                backgroundColor: 'var(--accent)',
+                mixBlendMode: 'color'
+              }}
+            />
+          </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-center p-3 border border-dashed border-[var(--hairline)] rounded-xl bg-[var(--card-bg)]">
+          <div 
+            className="w-full h-full flex items-center justify-center text-center p-3 border border-dashed rounded-xl"
+            style={{ 
+              borderColor: 'var(--hairline)',
+              backgroundColor: 'var(--card-bg)'
+            }}
+          >
             <div>
-              <p className="text-[var(--foreground)] font-semibold text-xs mb-1">{item.title}</p>
-              <p className="text-[var(--muted-foreground)] text-[10px]">Preview Card</p>
+              <p className="font-semibold text-xs mb-1" style={{ color: 'var(--foreground)' }}>
+                {item.title}
+              </p>
+              <p className="text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
+                Preview Card
+              </p>
             </div>
           </div>
         )}
@@ -198,16 +224,30 @@ function ProjectCard({ p, i }) {
         borderColor: 'var(--accent)', 
         boxShadow: '0 0 25px var(--accent-glow, rgba(249,115,22,0.25))' 
       }}
-      className="rounded-2xl bg-[var(--card-bg)] border border-[var(--hairline)] transition overflow-hidden flex flex-col justify-between shadow-xl"
+      className="rounded-2xl border transition overflow-hidden flex flex-col justify-between shadow-xl"
+      style={{ 
+        backgroundColor: 'var(--card-bg)', 
+        borderColor: 'var(--hairline)' 
+      }}
     >
       <MediaBox item={p} />
 
-      <div className="p-5 flex flex-col flex-1 justify-between bg-[var(--card-bg)] border-t border-[var(--hairline)]">
+      <div 
+        className="p-5 flex flex-col flex-1 justify-between border-t"
+        style={{ 
+          backgroundColor: 'var(--card-bg)', 
+          borderColor: 'var(--hairline)' 
+        }}
+      >
         <div>
-          <h3 className="text-lg font-semibold text-[var(--foreground)] mb-1">{p.title}</h3>
+          <h3 className="text-lg font-semibold mb-1" style={{ color: 'var(--foreground)' }}>
+            {p.title}
+          </h3>
           {p.techStack && (
-            <p className="text-xs text-[var(--muted-foreground)] font-medium mb-4">
-              <span className="text-[var(--foreground)] font-semibold">Technology Stack: </span>
+            <p className="text-xs font-medium mb-4" style={{ color: 'var(--muted-foreground)' }}>
+              <span className="font-semibold" style={{ color: 'var(--foreground)' }}>
+                Technology Stack:{' '}
+              </span>
               {p.techStack}
             </p>
           )}
@@ -219,7 +259,12 @@ function ProjectCard({ p, i }) {
               href={p.video}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 text-[var(--accent)] font-medium hover:bg-[var(--accent)] hover:text-[var(--card-bg)] hover:border-[var(--accent)] transition-all duration-300"
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full border font-medium transition-all duration-300"
+              style={{
+                borderColor: 'var(--accent)',
+                backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                color: 'var(--accent)'
+              }}
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                 <path d="M8 5v14l11-7-11-7z" />
@@ -232,7 +277,8 @@ function ProjectCard({ p, i }) {
               href={p.github}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 text-[var(--accent)] hover:underline"
+              className="flex items-center gap-1.5 hover:underline"
+              style={{ color: 'var(--accent)' }}
             >
               <GithubIcon size={18} /> GitHub
             </a>
@@ -242,7 +288,8 @@ function ProjectCard({ p, i }) {
               href={p.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-1.5 text-[var(--accent-3,var(--accent))] hover:underline"
+              className="flex items-center gap-1.5 hover:underline"
+              style={{ color: 'var(--accent-3, var(--accent))' }}
             >
               <LinkedinIcon size={18} /> LinkedIn
             </a>
@@ -265,9 +312,9 @@ function ProjectGrid({ items }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto text-[var(--foreground)]">
+    <section id="projects" className="py-24 px-6 max-w-7xl mx-auto" style={{ color: 'var(--foreground)' }}>
       <div className="text-center mb-14">
-        <SectionHeading text="Projects" isMainHeading={true} />
+        <SectionHeading text="Projects" />
       </div>
 
       <div className="mb-16">
