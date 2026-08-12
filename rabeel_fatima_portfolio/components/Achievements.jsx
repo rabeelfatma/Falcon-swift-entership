@@ -62,17 +62,30 @@ function StatCard({ item, index, active }) {
 
   return (
     <div
-      className="group relative w-full rounded-2xl border backdrop-blur-sm p-6 overflow-hidden hover:border-orange-500 hover:-translate-y-1 transition-all duration-300 animate-fadeUp"
+      className="group relative w-full rounded-2xl border backdrop-blur-sm p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300 animate-fadeUp"
       style={{
         animationDelay: `${index * 150}ms`,
         animationFillMode: "backwards",
         background: "var(--card-bg)",
         borderColor: "var(--card-border)"
       }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--accent)")}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--card-border)")}
     >
-      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent" />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: "linear-gradient(to bottom right, color-mix(in srgb, var(--accent) 10%, transparent), transparent, transparent)" }}
+      />
 
-      <div className="w-11 h-11 rounded-xl flex items-center justify-center text-orange-400 bg-orange-500/10 border border-orange-500/40 shadow-[0_0_18px_rgba(255,122,26,0.35)] mb-4">
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
+        style={{
+          color: "var(--accent-2)",
+          background: "color-mix(in srgb, var(--accent) 10%, transparent)",
+          border: "1px solid color-mix(in srgb, var(--accent) 40%, transparent)",
+          boxShadow: "0 0 18px color-mix(in srgb, var(--accent) 35%, transparent)"
+        }}
+      >
         {item.icon}
       </div>
 
@@ -81,7 +94,7 @@ function StatCard({ item, index, active }) {
         style={{ color: "var(--text)" }}
       >
         {displayValue}
-        <span className="text-orange-500">{item.suffix}</span>
+        <span style={{ color: "var(--accent)" }}>{item.suffix}</span>
       </div>
 
       <p
@@ -156,7 +169,7 @@ export default function Achievements() {
       {stars.map((s, i) => (
         <span
           key={i}
-          className="absolute rounded-full bg-orange-300 animate-twinkle pointer-events-none"
+          className="absolute rounded-full animate-twinkle pointer-events-none"
           style={{
             top: `${s.top}%`,
             left: `${s.left}%`,
@@ -164,15 +177,22 @@ export default function Achievements() {
             height: `${s.size}px`,
             animationDelay: `${s.delay}s`,
             opacity: 0.5,
+            background: "var(--accent-2)"
           }}
         />
       ))}
 
       {/* Top Ambient Light Glow */}
-      <div className="pointer-events-none absolute -top-20 -left-20 w-72 h-72 bg-orange-600/10 blur-3xl rounded-full" />
+      <div
+        className="pointer-events-none absolute -top-20 -left-20 w-72 h-72 blur-3xl rounded-full"
+        style={{ background: "color-mix(in srgb, var(--accent) 10%, transparent)" }}
+      />
 
       {/* Typewriter Section Header */}
-      <p className="relative text-orange-500 text-2xl md:text-3xl tracking-[0.25em] font-bold mb-12 font-mono">
+      <p
+        className="relative text-2xl md:text-3xl tracking-[0.25em] font-bold mb-12 font-mono"
+        style={{ color: "var(--accent)" }}
+      >
         {typed}
         <span className="inline-block w-[0.55ch]" style={{ opacity: showCursor ? 1 : 0 }}>|</span>
       </p>
@@ -194,21 +214,25 @@ export default function Achievements() {
         >
           <div className="relative w-[240px] h-[240px] md:w-[320px] md:h-[320px]">
             {/* Glowing background halo */}
-            <div className="absolute inset-0 rounded-full bg-orange-500/20 blur-[60px]" />
+            <div
+              className="absolute inset-0 rounded-full blur-[60px]"
+              style={{ background: "color-mix(in srgb, var(--accent) 20%, transparent)" }}
+            />
 
             <svg
               viewBox="0 0 200 200"
-              className="relative w-full h-full animate-float drop-shadow-[0_10px_25px_rgba(255,122,26,0.3)]"
+              className="relative w-full h-full animate-float"
+              style={{ filter: "drop-shadow(0 10px 25px color-mix(in srgb, var(--accent) 30%, transparent))" }}
             >
               <defs>
                 <linearGradient id="trophyGold" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ffd27a" />
-                  <stop offset="45%" stopColor="#ff9a3d" />
-                  <stop offset="100%" stopColor="#ff7a1a" />
+                  <stop offset="0%" stopColor="var(--accent-2)" />
+                  <stop offset="45%" stopColor="var(--accent)" />
+                  <stop offset="100%" stopColor="var(--accent-3)" />
                 </linearGradient>
                 <linearGradient id="trophyBase" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ff9a3d" />
-                  <stop offset="100%" stopColor="#c85a10" />
+                  <stop offset="0%" stopColor="var(--accent)" />
+                  <stop offset="100%" stopColor="var(--accent-3)" />
                 </linearGradient>
               </defs>
 
@@ -220,7 +244,7 @@ export default function Achievements() {
               <path d="M65 40h70l-6 55c-3 24-24 38-29 38s-26-14-29-38z" fill="url(#trophyGold)" />
               
               {/* Rim Rim Top */}
-              <rect x="60" y="34" width="80" height="12" rx="6" fill="#ffdca0" />
+              <rect x="60" y="34" width="80" height="12" rx="6" fill="var(--accent-2)" />
 
               {/* Emblem Star */}
               <path
@@ -232,7 +256,7 @@ export default function Achievements() {
               {/* Trophy Stem & Stand Base */}
               <path d="M92 133h16l3 22h-22z" fill="url(#trophyBase)" />
               <rect x="75" y="155" width="50" height="10" rx="3" fill="url(#trophyBase)" />
-              <rect x="65" y="165" width="70" height="10" rx="3" fill="#7a3608" />
+              <rect x="65" y="165" width="70" height="10" rx="3" fill="var(--accent-3)" />
             </svg>
           </div>
         </div>

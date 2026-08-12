@@ -63,7 +63,11 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.12, type: 'spring', stiffness: 160 }}
-            whileHover={{ scale: 1.1, borderColor: 'var(--accent)', boxShadow: '0 0 25px rgba(251,122,31,0.35)' }}
+            whileHover={{
+              scale: 1.1,
+              borderColor: 'var(--accent)',
+              boxShadow: '0 0 25px color-mix(in srgb, var(--accent) 35%, transparent)'
+            }}
             className="card rounded-xl py-5 text-center"
           >
             <p className="text-2xl font-bold gradient-text">{s.value}</p>
@@ -113,7 +117,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.09, type: 'spring', stiffness: 150 }}
-              whileHover={{ scale: 1.08, backgroundColor: 'rgba(251,122,31,0.12)' }}
+              whileHover={{ scale: 1.08, backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)' }}
               className="bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl py-4 px-3 flex flex-col items-center justify-center gap-2 text-center text-sm text-[var(--text-dim)]"
             >
               <item.icon size={18} className="text-[var(--accent)]" />
@@ -134,7 +138,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.09, type: 'spring', stiffness: 150 }}
-              whileHover={{ scale: 1.08, backgroundColor: 'rgba(251,122,31,0.12)' }}
+              whileHover={{ scale: 1.08, backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)' }}
               className="bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl py-3 text-center text-sm text-[var(--text-dim)]"
             >
               {s}.
