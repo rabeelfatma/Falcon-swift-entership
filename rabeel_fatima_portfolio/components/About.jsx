@@ -18,9 +18,26 @@ const interests = [
 const strengths = ['Quick Learner', 'Hardworking', 'Problem Solver', 'Detail-Oriented', 'Analytical', 'Works Under Pressure'];
 
 const stats = [
-  { label: 'Academic Projects', value: '15+' },
+  { label: 'Academic Projects', value: '14+' },
   { label: 'Technologies Used', value: '12+' },
 ];
+
+// Same hover + entrance animation reused on every box across this section
+const boxHover = {
+  scale: 1.08,
+  borderColor: 'var(--accent)',
+  backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)',
+  boxShadow: '0 0 25px color-mix(in srgb, var(--accent) 35%, transparent)',
+};
+
+const boxTap = { scale: 0.96 };
+
+const boxEntrance = (i = 0) => ({
+  initial: { opacity: 0, y: 25, rotate: -3, scale: 0.9 },
+  whileInView: { opacity: 1, y: 0, rotate: 0, scale: 1 },
+  viewport: { once: true },
+  transition: { duration: 0.55, delay: i * 0.09, type: 'spring', stiffness: 150 },
+});
 
 export default function About() {
   return (
@@ -59,16 +76,10 @@ export default function About() {
         {stats.map((s, i) => (
           <motion.div
             key={s.label}
-            initial={{ opacity: 0, y: 40, scale: 0.8, rotate: -3 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.12, type: 'spring', stiffness: 160 }}
-            whileHover={{
-              scale: 1.1,
-              borderColor: 'var(--accent)',
-              boxShadow: '0 0 25px color-mix(in srgb, var(--accent) 35%, transparent)'
-            }}
-            className="card rounded-xl py-5 text-center"
+            {...boxEntrance(i)}
+            whileHover={boxHover}
+            whileTap={boxTap}
+            className="card rounded-xl py-5 text-center border border-transparent"
           >
             <p className="text-2xl font-bold gradient-text">{s.value}</p>
             <p className="text-xs text-[var(--text-dim)] mt-1">{s.label}</p>
@@ -78,11 +89,10 @@ export default function About() {
 
       {/* Languages */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, type: 'spring', stiffness: 80 }}
-        className="card rounded-xl p-6 mb-10"
+        {...boxEntrance(0)}
+        whileHover={boxHover}
+        whileTap={boxTap}
+        className="card rounded-xl p-6 mb-10 border border-transparent"
       >
         <h3 className="text-lg font-semibold gradient-text mb-4">Languages</h3>
         <div className="space-y-4">
@@ -113,11 +123,9 @@ export default function About() {
           {interests.map((item, i) => (
             <motion.div
               key={item.label}
-              initial={{ opacity: 0, y: 25, rotate: -3, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.09, type: 'spring', stiffness: 150 }}
-              whileHover={{ scale: 1.08, backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)' }}
+              {...boxEntrance(i)}
+              whileHover={boxHover}
+              whileTap={boxTap}
               className="bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl py-4 px-3 flex flex-col items-center justify-center gap-2 text-center text-sm text-[var(--text-dim)]"
             >
               <item.icon size={18} className="text-[var(--accent)]" />
@@ -134,11 +142,9 @@ export default function About() {
           {strengths.map((s, i) => (
             <motion.div
               key={s}
-              initial={{ opacity: 0, y: 25, rotate: -3, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.09, type: 'spring', stiffness: 150 }}
-              whileHover={{ scale: 1.08, backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)' }}
+              {...boxEntrance(i)}
+              whileHover={boxHover}
+              whileTap={boxTap}
               className="bg-[var(--card-bg)] border border-[var(--hairline)] rounded-xl py-3 text-center text-sm text-[var(--text-dim)]"
             >
               {s}.
