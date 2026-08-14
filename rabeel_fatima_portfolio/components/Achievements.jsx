@@ -19,11 +19,11 @@ const achievements = [
     ),
   },
   {
-    value: 15,
+    value: 14,
     decimals: 0,
     suffix: "+",
     label: "Projects",
-    desc: "Completed 15+ projects across web, mobile & AI",
+    desc: "Successfully completed 14+ projects across Web, Mobile & Desktop platforms.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
